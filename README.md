@@ -1,2 +1,0 @@
-# poopcats.github.io
-PokeClicker
