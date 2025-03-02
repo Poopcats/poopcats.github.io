@@ -994,6 +994,614 @@
                 width: 200px;
             }
         }
+		
+		.casino-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .case-display {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #8e44ad, #3498db);
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(142, 68, 173, 0.6);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .case-display:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 40px rgba(142, 68, 173, 0.8);
+        }
+        
+        .case-display::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                rgba(255, 255, 255, 0.2) 50%,
+                transparent 100%
+            );
+            transform: rotate(45deg);
+            animation: shine 3s infinite;
+        }
+        
+        .case-display img {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7));
+        }
+        
+        .case-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .case-price {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin: 10px 0;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+        
+        .buy-case-btn {
+            background: linear-gradient(to right, var(--accent-color), #ff9900);
+            color: #333;
+            font-size: 18px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+        }
+        
+        .buy-case-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .buy-case-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+        
+        .buy-case-btn:disabled {
+            background: #888;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .case-odds {
+            background-color: var(--background-dark);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .case-odds h3 {
+            color: var(--accent-color);
+            text-align: center;
+            margin-top: 0;
+        }
+        
+        .odds-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .odds-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 8px 5px;
+            text-align: center;
+            font-size: 12px;
+            position: relative;
+        }
+        
+        .odds-item img {
+            width: 40px;
+            height: 40px;
+            display: block;
+            margin: 0 auto 5px;
+        }
+        
+        .metallic-odds {
+            border: 1px solid var(--metallic-primary);
+        }
+        
+        .shiny-odds {
+            border: 1px solid #ffd700;
+        }
+        
+        .normal-odds {
+            border: 1px solid #3498db;
+        }
+        
+        .odds-percentage {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 10px;
+        }
+        
+        /* Case opening animation */
+        .case-opening-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+        
+        .spinner-container {
+            width: 90%;
+            max-width: 800px;
+            height: 150px;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid var(--accent-color);
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin-bottom: 30px;
+        }
+        
+        .spinner-items {
+            display: flex;
+            position: absolute;
+            left: 0;
+            transition: left 8s cubic-bezier(0.32, 0.64, 0.45, 1);
+        }
+        
+        .spinner-item {
+            width: 120px;
+            height: 120px;
+            margin: 15px 10px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+        
+        .spinner-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .spinner-item.metallic {
+            border: 2px solid var(--metallic-primary);
+            background: linear-gradient(135deg, rgba(80, 80, 100, 0.6), rgba(180, 180, 220, 0.4));
+        }
+        
+        .spinner-item.metallic img {
+            filter: grayscale(1) brightness(1.5) contrast(1.8) saturate(0.1);
+        }
+        
+        .spinner-item.shiny {
+            border: 2px solid #ffd700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.1));
+        }
+        
+        .spinner-item.normal {
+            border: 2px solid #3498db;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2), rgba(52, 152, 219, 0.1));
+        }
+        
+        .spinner-item p {
+            margin: 5px 0 0;
+            font-size: 12px;
+            text-align: center;
+            color: white;
+        }
+        
+        .spinner-indicator {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 150px;
+            background-color: var(--accent-color);
+            z-index: 10;
+            box-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
+        }
+        
+        .spinner-result {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .spinner-result.show {
+            opacity: 1;
+        }
+        
+        .spin-again-btn {
+            background: linear-gradient(to right, var(--accent-color), #ff9900);
+            color: #333;
+            font-size: 18px;
+            padding: 12px 30px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+            opacity: 0;
+        }
+        
+        .spin-again-btn.show {
+            opacity: 1;
+        }
+        
+        /* History section */
+        .case-history {
+            margin-top: 30px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        .case-history h3 {
+            color: var(--accent-color);
+            text-align: center;
+        }
+        
+        .history-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        
+        .history-item {
+            width: 80px;
+            height: 100px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 5px;
+            position: relative;
+        }
+        
+        .history-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+        }
+        
+        .history-item p {
+            margin: 5px 0 0;
+            font-size: 10px;
+            text-align: center;
+        }
+        
+        .history-item.metallic {
+            border: 1px solid var(--metallic-primary);
+        }
+        
+        .history-item.shiny {
+            border: 1px solid #ffd700;
+        }
+        
+        .history-item.normal {
+            border: 1px solid #3498db;
+        }
+        
+        .timestamp {
+            position: absolute;
+            bottom: 2px;
+            font-size: 8px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .odds-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .spinner-container {
+                height: 120px;
+            }
+            
+            .spinner-item {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .spinner-item img {
+                width: 60px;
+                height: 60px;
+            }
+            
+            .spinner-indicator {
+                height: 120px;
+            }
+        }
+		
+		.diamond-sprite {
+    filter: drop-shadow(0 0 5px #4fc3f7) brightness(1.2) contrast(1.1) saturate(1.5) hue-rotate(170deg);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.diamond-sprite::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -250%;
+    width: 400%;
+    height: 200%;
+    opacity: 0.6;
+    background: linear-gradient(
+        to bottom,
+        rgba(79, 195, 247, 0) 0%,
+        rgba(79, 195, 247, 1) 50%,
+        rgba(79, 195, 247, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: diamond-shine 2.5s ease-in-out infinite;
+    z-index: 10;
+}
+
+.diamond-sprite::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(79, 195, 247, 0.4) 0%,
+        rgba(79, 195, 247, 0.1) 30%,
+        rgba(13, 71, 161, 0.1) 70%
+    );
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+@keyframes diamond-shine {
+    0% {
+        top: -150%;
+        left: -250%;
+        opacity: 0.6;
+    }
+    100% {
+        top: 100%;
+        left: 100%;
+        opacity: 0.8;
+    }
+}
+
+.diamond-item {
+    background-color: rgba(13, 71, 161, 0.3);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(79, 195, 247, 0.5) inset;
+    border: 1px solid rgba(79, 195, 247, 0.6);
+}
+
+.diamond-item::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -250%;
+    width: 400%;
+    height: 200%;
+    opacity: 0.5;
+    background: linear-gradient(
+        to bottom,
+        rgba(79, 195, 247, 0) 0%,
+        rgba(79, 195, 247, 1) 50%,
+        rgba(79, 195, 247, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: diamond-shine 2.5s ease-in-out infinite;
+    z-index: 5;
+}
+
+.pokedex-item.diamond {
+    background-color: rgba(13, 71, 161, 0.3);
+    filter: brightness(1.2);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 5px rgba(79, 195, 247, 0.5);
+}
+
+.pokedex-item.diamond::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -250%;
+    width: 400%;
+    height: 200%;
+    opacity: 0.5;
+    background: linear-gradient(
+        to bottom,
+        rgba(79, 195, 247, 0) 0%,
+        rgba(79, 195, 247, 1) 50%,
+        rgba(79, 195, 247, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: diamond-shine 2.5s ease-in-out infinite;
+    z-index: 1;
+}
+
+/* Diamond reward popup */
+.diamond-reward-popup {
+    position: fixed;
+    top: 20%;
+    right: 20px;
+    width: 200px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 2px solid #4fc3f7;
+    border-radius: 10px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(79, 195, 247, 0.4);
+    animation: popup-enter 0.5s ease-out;
+    transform-origin: right center;
+}
+
+.diamond-reward-popup h3 {
+    margin-top: 0;
+    color: #4fc3f7;
+    text-shadow: 0 0 5px rgba(79, 195, 247, 0.8);
+}
+
+.diamond-popup-image {
+    width: 120px;
+    height: 120px;
+    margin: 10px auto;
+    background: linear-gradient(135deg, rgba(13, 71, 161, 0.6), rgba(79, 195, 247, 0.4));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 5px 15px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(79, 195, 247, 0.6) inset;
+    border: 2px solid rgba(79, 195, 247, 0.6);
+}
+
+.diamond-popup-image::before {
+    content: '';
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    background: radial-gradient(
+        circle, 
+        rgba(79, 195, 247, 0.8) 0%, 
+        rgba(79, 195, 247, 0.4) 20%, 
+        rgba(13, 71, 161, 0.1) 50%, 
+        rgba(0, 0, 0, 0) 70%
+    );
+    animation: pulse-glow 2s infinite;
+}
+
+.diamond-popup-image::after {
+    content: '';
+    position: absolute;
+    top: -150%;
+    left: -250%;
+    width: 400%;
+    height: 200%;
+    opacity: 0.7;
+    background: linear-gradient(
+        to bottom,
+        rgba(79, 195, 247, 0) 0%,
+        rgba(79, 195, 247, 1) 50%,
+        rgba(79, 195, 247, 0) 100%
+    );
+    transform: rotate(30deg);
+    animation: diamond-shine 2.5s ease-in-out infinite;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.diamond-popup-image img {
+    position: relative;
+    z-index: 2;
+    transform: scale(1.5);
+    image-rendering: pixelated;
+    filter: drop-shadow(0 0 5px #4fc3f7) brightness(1.2) contrast(1.1) saturate(1.2);
+}
+
+.diamond-reward-popup.fade-out {
+    animation: popup-exit 1s forwards;
+}
+
+/* Add to collection tabs */
+.collection-tab[data-collection="diamond"] {
+    background-color: rgba(13, 71, 161, 0.5);
+    color: white;
+}
+
+.collection-tab[data-collection="diamond"].active {
+    background-color: rgba(79, 195, 247, 0.5);
+}
+
+/* Add to pokedex tabs */
+.pokedex-tab[data-pokedex-tab="diamond"] {
+    background-color: rgba(13, 71, 161, 0.5);
+}
+
+.pokedex-tab[data-pokedex-tab="diamond"].active {
+    background-color: rgba(79, 195, 247, 0.5);
+    border-bottom: 2px solid #4fc3f7;
+}
+
+/* Diamond odds in casino */
+.diamond-odds {
+    border: 1px solid #4fc3f7;
+    background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(79, 195, 247, 0.2));
+}
+
+/* Diamond spinner item in casino */
+.spinner-item.diamond {
+    border: 2px solid #4fc3f7;
+    background: linear-gradient(135deg, rgba(13, 71, 161, 0.3), rgba(79, 195, 247, 0.2));
+}
+
+/* Diamond history item in casino */
+.history-item.diamond {
+    border: 1px solid #4fc3f7;
+}
+		
     </style>
 </head>
 <body>
@@ -1204,7 +1812,7 @@
                 ultraball: { count: 0, catchRate: 0.50, cost: 1000 }
             },
             upgrades: {
-                clickPower: { level: 1, cost: 50, increment: 1 },
+                clickPower: { level: 1, cost: 1, increment: 1 },
                 shinyLuck: { level: 1, cost: 500, multiplier: 1.2 }
             },
             collection: {
@@ -3362,6 +3970,1824 @@
                 }
             }
         }, 10000); // 10-second safety timeout
+		
+		(function() {
+    // Casino initialization - runs after the game is loaded
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            console.log("Initializing casino system...");
+            try {
+                // Add the casino tab to the navigation
+                const tabsDiv = document.querySelector('.tabs');
+                if (tabsDiv) {
+                    // Create and add the Casino tab
+                    const casinoTab = document.createElement('div');
+                    casinoTab.className = 'tab';
+                    casinoTab.setAttribute('data-tab', 'casino');
+                    casinoTab.textContent = 'Casino';
+                    tabsDiv.appendChild(casinoTab);
+                    
+                    // Create and add the Casino tab content
+                    const gameContainer = document.querySelector('.game-container');
+                    if (gameContainer) {
+                        const casinoTabContent = document.createElement('div');
+                        casinoTabContent.className = 'tab-content';
+                        casinoTabContent.id = 'casino';
+                        
+                        casinoTabContent.innerHTML = `
+                            <h2>Pokémon Mystery Case</h2>
+                            <div class="casino-container">
+                                <div class="case-display" id="case-display">
+                                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="Pokémon Case">
+                                </div>
+                                
+                                <div class="case-info">
+                                    <h3>Try your luck!</h3>
+                                    <p>Unlock a case for a chance to get rare Pokémon</p>
+                                    <div class="case-price">Cost: <span id="case-price">50,000,000</span></div>
+                                    <button class="buy-case-btn" id="buy-case-btn">Open Case</button>
+                                </div>
+                                
+                                <div class="case-odds">
+                                    <h3>Possible Rewards</h3>
+                                    <div class="odds-grid" id="odds-grid">
+                                        <!-- Odds items will be added here dynamically -->
+                                    </div>
+                                </div>
+                                
+                                <div class="case-history">
+                                    <h3>Recent Openings</h3>
+                                    <div class="history-items" id="history-items">
+                                        <!-- History items will be added here dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        
+                        gameContainer.appendChild(casinoTabContent);
+
+                        // Make sure tab switching works for the new tab
+                        casinoTab.addEventListener('click', () => {
+                            console.log("Casino tab clicked");
+                            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                            
+                            casinoTab.classList.add('active');
+                            casinoTabContent.classList.add('active');
+                        });
+                    }
+                
+                    // Initialize casino if it doesn't exist in game state
+                    if (!gameState.casino) {
+                        gameState.casino = {
+                            casePrice: 50000000,
+                            history: [],
+                            possibleRewards: []
+                        };
+                        
+                        // Generate possible rewards (5 metallic, 4 shiny, 1 normal)
+                        generatePossibleRewards();
+                    }
+                    
+                    // Initialize the odds display
+                    initCasinoOdds();
+                    
+                    // Initialize history display
+                    updateHistoryDisplay();
+                    
+                    // Add event listener to buy button
+                    const buyButton = document.getElementById('buy-case-btn');
+                    if (buyButton) {
+                        buyButton.addEventListener('click', function() {
+                            console.log("Open case button clicked");
+                            openCase();
+                        });
+                        
+                        // Set initial button state
+                        updateCasinoUI();
+                    }
+                    
+                    // Add hover effects to case display
+                    const caseDisplay = document.getElementById('case-display');
+                    if (caseDisplay) {
+                        caseDisplay.addEventListener('click', function() {
+                            console.log("Case display clicked");
+                            if (gameState.money >= gameState.casino.casePrice) {
+                                openCase();
+                            } else {
+                                showNotification("Not enough money to open a case!");
+                            }
+                        });
+                    }
+                }
+            } catch (error) {
+                console.error("Error initializing casino:", error);
+            }
+        }, 3000); // Delay to ensure game is loaded
+    });
+
+    // Generate possible rewards for the case
+   function generatePossibleRewards() {
+    console.log("Generating possible rewards with Diamond in every case...");
+    
+    // Clear existing rewards
+    gameState.casino.possibleRewards = [];
+    
+    // Get all available Pokémon IDs from 1 to 1025
+    const availablePokemon = Array.from({ length: 1025 }, (_, i) => i + 1);
+    
+    // Shuffle the array for randomness
+    const shuffled = shuffleArray([...availablePokemon]);
+    
+    // Take 10 Pokémon for our case
+    const selectedPokemon = shuffled.slice(0, 10);
+    console.log("Selected Pokémon IDs:", selectedPokemon);
+    
+    // Count to track loaded Pokémon
+    let loadedCount = 0;
+    
+    // Assign types: 1 diamond (1% chance), 4 metallic (49% chance), 4 shiny (40% chance), 1 normal (10% chance)
+    const typeDistribution = [
+        { type: 'diamond', count: 1, weight: 1 },    // 1% chance
+        { type: 'metallic', count: 4, weight: 49 },  // 49% chance
+        { type: 'shiny', count: 4, weight: 40 },     // 40% chance
+        { type: 'normal', count: 1, weight: 10 }     // 10% chance
+    ];
+    
+    // Create the total "weight" for probability calculation
+    const totalWeight = typeDistribution.reduce((sum, item) => sum + item.weight, 0);
+    
+    for (let i = 0; i < selectedPokemon.length; i++) {
+        const pokemonId = selectedPokemon[i];
+        
+        // Assign type based on position in the array
+        let type;
+        if (i < 1) type = 'diamond';
+        else if (i < 5) type = 'metallic';
+        else if (i < 9) type = 'shiny';
+        else type = 'normal';
+        
+        // Fetch the Pokémon name
+        fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+            .then(response => response.json())
+            .then(data => {
+                const pokemonName = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                
+                // Add to possible rewards with weighted probability
+                const typeInfo = typeDistribution.find(t => t.type === type);
+                const probability = typeInfo ? (typeInfo.weight / totalWeight) * 100 : 0;
+                
+                gameState.casino.possibleRewards.push({
+                    id: pokemonId,
+                    name: pokemonName,
+                    type: type,
+                    probability: probability // Store the probability for display
+                });
+                
+                loadedCount++;
+                console.log(`Loaded ${loadedCount}/10 Pokémon (${type})`);
+                
+                // Update odds display if all Pokémon are loaded
+                if (loadedCount === 10) {
+                    console.log("All Pokémon loaded, updating display");
+                    updateOddsDisplay();
+                }
+            })
+            .catch(error => {
+                console.error(`Error fetching Pokémon #${pokemonId}:`, error);
+                
+                // Add with placeholder name
+                const typeInfo = typeDistribution.find(t => t.type === type);
+                const probability = typeInfo ? (typeInfo.weight / totalWeight) * 100 : 0;
+                
+                gameState.casino.possibleRewards.push({
+                    id: pokemonId,
+                    name: `Pokémon #${pokemonId}`,
+                    type: type,
+                    probability: probability
+                });
+                
+                loadedCount++;
+                console.log(`Loaded ${loadedCount}/10 Pokémon (${type}, with error)`);
+                
+                // Update odds display if all Pokémon are loaded
+                if (loadedCount === 10) {
+                    console.log("All Pokémon loaded, updating display");
+                    updateOddsDisplay();
+                }
+            });
+    }
+    
+    // Safety timeout in case some Pokémon don't load
+    setTimeout(() => {
+        if (loadedCount < 10 && gameState.casino.possibleRewards.length > 0) {
+            console.log("Some Pokémon failed to load, updating display anyway");
+            updateOddsDisplay();
+        }
+    }, 5000);
+}
+    
+    // Initialize casino odds display
+    function initCasinoOdds() {
+        // Update case price display
+        const priceElement = document.getElementById('case-price');
+        if (priceElement) {
+            priceElement.textContent = gameState.casino.casePrice.toLocaleString();
+        }
+        
+        // Check if we need to generate new rewards
+        if (!gameState.casino.possibleRewards || gameState.casino.possibleRewards.length === 0) {
+            generatePossibleRewards();
+        } else {
+            // Update odds display with existing rewards
+            updateOddsDisplay();
+        }
+    }
+    
+    // Update odds display
+function updateOddsDisplay() {
+    const oddsGrid = document.getElementById('odds-grid');
+    if (!oddsGrid) return;
+    
+    // Clear existing odds
+    oddsGrid.innerHTML = '';
+    
+    // Sort rewards by type (diamond first, then metallic, then shiny, then normal)
+    const sortedRewards = [...gameState.casino.possibleRewards].sort((a, b) => {
+        const typeOrder = { 'diamond': 0, 'metallic': 1, 'shiny': 2, 'normal': 3 };
+        return typeOrder[a.type] - typeOrder[b.type];
+    });
+    
+    // Add each possible reward to the odds display
+    sortedRewards.forEach(reward => {
+        const oddsItem = document.createElement('div');
+        oddsItem.className = `odds-item ${reward.type}-odds`;
+        
+        // Determine image URL based on type (diamond uses normal sprite with styling)
+        let imgUrl;
+        if (reward.type === 'shiny') {
+            imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${reward.id}.png`;
+        } else {
+            imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${reward.id}.png`;
+        }
+        
+        // Format probability to be more readable
+        const displayProbability = reward.probability ? 
+            `${reward.probability.toFixed(1)}%` : 
+            (reward.type === 'diamond' ? '1%' : 
+             reward.type === 'metallic' ? '12.3%' : 
+             reward.type === 'shiny' ? '10%' : '10%');
+        
+        // Create item HTML
+        oddsItem.innerHTML = `
+            <div class="odds-percentage">${displayProbability}</div>
+            <img src="${imgUrl}" alt="${reward.name}" 
+                ${reward.type === 'metallic' ? 'class="metallic-sprite"' : 
+                  reward.type === 'diamond' ? 'class="diamond-sprite"' : ''}>
+            <p>${
+                reward.type === 'metallic' ? '🔍' : 
+                reward.type === 'shiny' ? '✨' : 
+                reward.type === 'diamond' ? '💎' : ''
+            } ${reward.name}</p>
+        `;
+        
+        oddsGrid.appendChild(oddsItem);
+    });
+}
+    
+    // Update casino UI
+    function updateCasinoUI() {
+        const buyButton = document.getElementById('buy-case-btn');
+        if (buyButton) {
+            // Enable/disable button based on money
+            buyButton.disabled = gameState.money < gameState.casino.casePrice;
+        }
+    }
+    
+    // Open a case
+    function openCase() {
+        console.log("Opening case function called");
+        
+        // Check if player has enough money
+        if (gameState.money < gameState.casino.casePrice) {
+            showNotification("Not enough money to open a case!");
+            return;
+        }
+        
+        // Deduct the case price
+        gameState.money -= gameState.casino.casePrice;
+        console.log(`Deducted ${gameState.casino.casePrice} from player's money`);
+        
+        // Update UI
+        updateUI();
+        
+        try {
+            // Show case opening animation
+            showCaseOpeningAnimation();
+        } catch (error) {
+            console.error("Error in case opening animation:", error);
+            // Refund money if something goes wrong
+            gameState.money += gameState.casino.casePrice;
+            updateUI();
+            showNotification("Error opening case. Please try again.");
+        }
+    }
+    
+// Replace the showCaseOpeningAnimation function with this fixed version
+
+function showCaseOpeningAnimation() {
+    console.log("Starting case opening animation");
+    
+    // Ensure we have rewards to choose from
+    if (!gameState.casino.possibleRewards || gameState.casino.possibleRewards.length === 0) {
+        console.error("No possible rewards found");
+        showNotification("Error: No rewards available. Please try again.");
+        gameState.money += gameState.casino.casePrice; // Refund
+        updateUI();
+        return;
+    }
+    
+    console.log(`Found ${gameState.casino.possibleRewards.length} possible rewards`);
+    
+    // Create modal for case opening
+    const modal = document.createElement('div');
+    modal.className = 'case-opening-modal';
+    
+    // Create spinner container
+    const spinnerContainer = document.createElement('div');
+    spinnerContainer.className = 'spinner-container';
+    
+    // Create spinner indicator (center line)
+    const indicator = document.createElement('div');
+    indicator.className = 'spinner-indicator';
+    spinnerContainer.appendChild(indicator);
+    
+    // Create spinner items container
+    const spinnerItems = document.createElement('div');
+    spinnerItems.className = 'spinner-items';
+    
+    // Determine the winning item (random selection from possible rewards)
+    const randomIndex = Math.floor(Math.random() * gameState.casino.possibleRewards.length);
+    const winningReward = gameState.casino.possibleRewards[randomIndex];
+    console.log("Selected winning reward:", winningReward);
+    
+    // Create a large set of items to make the animation smoother
+    const totalItems = 50;
+    
+    // Define exact width for consistent calculations
+    const itemWidth = 120; // Width of each spinner item in pixels
+    const itemMargin = 20; // Total margin (left+right) for each item
+    const itemTotalWidth = itemWidth + itemMargin; // Total width including margins
+    
+    // Position where the winning item should appear
+    // We need to make this one item to the LEFT of where we were putting it before
+    const winningPosition = 36; // Adjusted from 37
+    
+    // Create all spinner items
+    for (let i = 0; i < totalItems; i++) {
+        // Determine which item to show
+        let reward;
+        
+        if (i === winningPosition) {
+            // This is the winning position - use the pre-selected winning reward
+            reward = winningReward;
+        } else {
+            // Random item from possible rewards
+            const randomRewardIndex = Math.floor(Math.random() * gameState.casino.possibleRewards.length);
+            reward = gameState.casino.possibleRewards[randomRewardIndex];
+        }
+        
+        // Create spinner item
+        const item = document.createElement('div');
+        item.className = `spinner-item ${reward.type}`;
+        
+        // Set fixed width to ensure consistent layout
+        item.style.width = `${itemWidth}px`;
+        item.style.margin = `15px ${itemMargin/2}px`;
+        item.style.boxSizing = 'border-box';
+        
+        if (i === winningPosition) {
+            item.setAttribute('data-winning', 'true');
+            // Add a subtle identifier for debugging
+            item.style.borderWidth = '3px';
+        }
+        
+        // Determine image URL based on type
+        let imgUrl;
+        if (reward.type === 'shiny') {
+            imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${reward.id}.png`;
+        } else {
+            imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${reward.id}.png`;
+        }
+        
+        // Create item HTML
+        item.innerHTML = `
+            <img src="${imgUrl}" alt="${reward.name}" ${reward.type === 'metallic' ? 'class="metallic-sprite"' : ''}>
+            <p>${reward.name}</p>
+        `;
+        
+        spinnerItems.appendChild(item);
+    }
+    
+    spinnerContainer.appendChild(spinnerItems);
+    modal.appendChild(spinnerContainer);
+    
+    // Add result text
+    const resultText = document.createElement('div');
+    resultText.className = 'spinner-result';
+    modal.appendChild(resultText);
+    
+    // Add spin again button
+    const spinAgainBtn = document.createElement('button');
+    spinAgainBtn.className = 'spin-again-btn';
+    spinAgainBtn.textContent = 'Open Another Case';
+    spinAgainBtn.addEventListener('click', function() {
+        document.body.removeChild(modal);
+        
+        // Generate new random rewards for the next case
+        console.log("Generating new rewards for next case");
+        generatePossibleRewards();
+        
+        // Check if player can open another case
+        if (gameState.money >= gameState.casino.casePrice) {
+            openCase();
+        } else {
+            showNotification("Not enough money to open another case!");
+        }
+    });
+    modal.appendChild(spinAgainBtn);
+    
+    // Add to body
+    document.body.appendChild(modal);
+    
+    // Render the container first, then start animation after measurements are available
+    setTimeout(() => {
+        // Get spinner container measurements
+        const containerWidth = spinnerContainer.offsetWidth;
+        
+        // Calculate the center position of the container
+        const containerCenter = containerWidth / 2;
+        
+        // Calculate the initial left position to align the winning item with the center
+        // Mathematical formula: container center - (winning position * item width + item width/2)
+        const finalPosition = containerCenter - ((winningPosition * itemTotalWidth) + (itemTotalWidth / 2));
+        
+        console.log(`Container width: ${containerWidth}, Container center: ${containerCenter}`);
+        console.log(`Item width: ${itemTotalWidth}, Winning position: ${winningPosition}`);
+        console.log(`Calculated final position: ${finalPosition}`);
+        
+        // Set initial position to start far to the right (for animation)
+        spinnerItems.style.left = `${window.innerWidth}px`;
+        
+        // Set the winning position with a short delay to ensure initial position is applied
+        setTimeout(() => {
+            // Apply animation
+            spinnerItems.style.transition = 'left 8s cubic-bezier(0.32, 0.64, 0.45, 1)';
+            spinnerItems.style.left = `${finalPosition}px`;
+            
+            // Show result after animation completes
+            setTimeout(() => {
+                // Verify and debug final alignment
+                const winningItem = spinnerItems.querySelector('[data-winning="true"]');
+                if (winningItem) {
+                    const winningRect = winningItem.getBoundingClientRect();
+                    const indicatorRect = indicator.getBoundingClientRect();
+                    
+                    console.log('Final alignment check:');
+                    console.log(`Winning item center: ${winningRect.left + winningRect.width/2}`);
+                    console.log(`Indicator center: ${indicatorRect.left + indicatorRect.width/2}`);
+                    console.log(`Offset: ${(winningRect.left + winningRect.width/2) - (indicatorRect.left + indicatorRect.width/2)}px`);
+                    
+                    // Add highlight effect
+                    winningItem.style.boxShadow = '0 0 20px #ffcb05, 0 0 40px #ffcb05';
+                    winningItem.style.transform = 'scale(1.1)';
+                    winningItem.style.zIndex = '10';
+                    winningItem.style.transition = 'all 0.5s ease';
+                }
+                
+                resultText.innerHTML = `
+                    <h2>Congratulations!</h2>
+                    <p>You won ${winningReward.type === 'metallic' ? '🔍' : winningReward.type === 'shiny' ? '✨' : ''} ${winningReward.name}!</p>
+                `;
+                resultText.classList.add('show');
+                spinAgainBtn.classList.add('show');
+                
+                // Add the reward to collection
+                addRewardToCollection(winningReward);
+                
+                // Add to history
+                addToHistory(winningReward);
+                
+                // Play winning sound
+                playWinSound(winningReward.type);
+                
+            }, 8000); // Animation takes 8 seconds
+        }, 10);
+    }, 100);
+}
+
+function showCaseOpeningResult(winningReward, resultText, spinAgainBtn) {
+    // Determine icon based on type
+    let rewardIcon = '';
+    if (winningReward.type === 'metallic') {
+        rewardIcon = '🔍';
+    } else if (winningReward.type === 'shiny') {
+        rewardIcon = '✨';
+    } else if (winningReward.type === 'diamond') {
+        rewardIcon = '💎';
+    }
+    
+    resultText.innerHTML = `
+        <h2>Congratulations!</h2>
+        <p>You won ${rewardIcon} ${winningReward.name}${rewardIcon ? ' ' + rewardIcon : ''}!</p>
+    `;
+    
+    // Special effect for diamond rewards
+    if (winningReward.type === 'diamond') {
+        resultText.style.color = '#4fc3f7';
+        resultText.style.textShadow = '0 0 10px #4fc3f7';
+        
+        // Add celebration animation for diamond reward
+        const celebration = document.createElement('div');
+        celebration.style.position = 'absolute';
+        celebration.style.top = '0';
+        celebration.style.left = '0';
+        celebration.style.width = '100%';
+        celebration.style.height = '100%';
+        celebration.style.pointerEvents = 'none';
+        celebration.style.zIndex = '1';
+        
+        // Add particles
+        for (let i = 0; i < 100; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = '10px';
+            particle.style.height = '10px';
+            particle.style.borderRadius = '50%';
+            particle.style.backgroundColor = i % 2 === 0 ? '#4fc3f7' : '#0d47a1';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.opacity = '0';
+            particle.style.animation = `diamond-particle ${1 + Math.random() * 2}s forwards`;
+            celebration.appendChild(particle);
+        }
+        
+        // Add keyframes for particles
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes diamond-particle {
+                0% { transform: scale(0); opacity: 0; }
+                50% { opacity: 0.8; }
+                100% { transform: translate(${Math.random() > 0.5 ? '-' : ''}${50 + Math.random() * 100}px, ${Math.random() > 0.5 ? '-' : ''}${50 + Math.random() * 100}px) scale(0); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        document.querySelector('.case-opening-modal').appendChild(celebration);
+    }
+    
+    resultText.classList.add('show');
+    spinAgainBtn.classList.add('show');
+}
+    
+    // Add reward to player's collection
+    function addRewardToCollection(reward) {
+        // Determine collection type based on reward type
+        const collectionType = reward.type;
+        
+        // Add to appropriate collection
+        if (!gameState.collection[collectionType][reward.id]) {
+            gameState.collection[collectionType][reward.id] = {
+                name: reward.name,
+                caught: 1
+            };
+        } else {
+            gameState.collection[collectionType][reward.id].caught++;
+        }
+        
+        // Mark as caught in Pokedex
+        gameState.pokedex.caught[reward.id] = true;
+        
+        // If shiny or metallic, mark as seen in that category
+        if (reward.type === 'shiny') {
+            gameState.pokedex.shinySeen[reward.id] = true;
+        } else if (reward.type === 'metallic') {
+            gameState.pokedex.metallicSeen[reward.id] = true;
+        }
+        
+        // Mark as seen in regular Pokedex
+        gameState.pokedex.seen[reward.id] = true;
+        
+        // Update Pokedex displays
+        updatePokedexItem(reward.id);
+        
+        // Update collection UI
+        updateCollectionUI();
+        
+        // Update Pokedex stats
+        updatePokedexStats();
+        
+        // Save game
+        saveGame();
+    }
+    
+    // Add reward to history
+    function addToHistory(reward) {
+        // Create history object
+        const historyItem = {
+            id: reward.id,
+            name: reward.name,
+            type: reward.type,
+            timestamp: new Date().getTime()
+        };
+        
+        // Add to history array (limit to 20 items)
+        gameState.casino.history.unshift(historyItem);
+        if (gameState.casino.history.length > 20) {
+            gameState.casino.history.pop();
+        }
+        
+        // Update history display
+        updateHistoryDisplay();
+        
+        // Save game
+        saveGame();
+    }
+    
+    // Update history display
+    function updateHistoryDisplay() {
+        const historyContainer = document.getElementById('history-items');
+        if (!historyContainer) return;
+        
+        // Clear existing history
+        historyContainer.innerHTML = '';
+        
+        // Add each history item
+        gameState.casino.history.forEach(item => {
+            const historyItem = document.createElement('div');
+            historyItem.className = `history-item ${item.type}`;
+            
+            // Determine image URL based on type
+            let imgUrl;
+            if (item.type === 'shiny') {
+                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${item.id}.png`;
+            } else {
+                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`;
+            }
+            
+            // Format timestamp
+            const date = new Date(item.timestamp);
+            const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+            
+            // Create item HTML
+            historyItem.innerHTML = `
+                <img src="${imgUrl}" alt="${item.name}" ${item.type === 'metallic' ? 'class="metallic-sprite"' : ''}>
+                <p>${item.type === 'metallic' ? '🔍' : item.type === 'shiny' ? '✨' : ''} ${item.name}</p>
+                <div class="timestamp">${formattedTime}</div>
+            `;
+            
+            historyContainer.appendChild(historyItem);
+        });
+        
+        // If no history, show message
+        if (gameState.casino.history.length === 0) {
+            historyContainer.innerHTML = '<div class="empty-history">No case openings yet</div>';
+        }
+    }
+    
+    // Play winning sound based on reward type
+    function playWinSound(type) {
+        // Create audio element
+        const audio = new Audio();
+        
+        // Set source based on type
+        if (type === 'metallic') {
+            // Epic win sound
+            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAUHAAAAAAAAA8FQxwLCAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+        } else if (type === 'shiny') {
+            // Medium win sound
+            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAZmAAAAAAAAA8EdVc1RAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+        } else {
+            // Regular win sound
+            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAVKAAAAAAAAA8FM20HRAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+        }
+        
+        // Play sound
+        audio.play().catch(e => console.error('Error playing sound:', e));
+    }
+    
+    // Hook into the existing UI update function
+    const originalUpdateUI = window.updateUI;
+    window.updateUI = function() {
+        // Call the original function
+        if (typeof originalUpdateUI === 'function') {
+            originalUpdateUI();
+        }
+        
+        // Update casino UI
+        if (typeof updateCasinoUI === 'function') {
+            updateCasinoUI();
+        }
+    };
+})();
+
+(function() {
+    // Wait until the game is fully loaded
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            try {
+                console.log("Initializing Diamond Pokémon system...");
+                
+                // Add diamond collection if it doesn't exist
+                if (!gameState.collection.diamond) {
+                    gameState.collection.diamond = {};
+                }
+                
+                // Add diamond seen Pokédex property if it doesn't exist
+                if (!gameState.pokedex.diamondSeen) {
+                    gameState.pokedex.diamondSeen = {};
+                }
+                
+                // Add diamond tab to collection tabs
+                const collectionTabs = document.querySelector('.collection-tabs');
+                if (collectionTabs) {
+                    const diamondTab = document.createElement('div');
+                    diamondTab.className = 'collection-tab';
+                    diamondTab.setAttribute('data-collection', 'diamond');
+                    diamondTab.textContent = 'Diamond';
+                    collectionTabs.appendChild(diamondTab);
+                    
+                    // Create diamond collection container
+                    const collectionContainer = document.getElementById('collection');
+                    if (collectionContainer) {
+                        const diamondCollection = document.createElement('div');
+                        diamondCollection.className = 'collection';
+                        diamondCollection.id = 'diamond-collection';
+                        diamondCollection.style.display = 'none';
+                        collectionContainer.appendChild(diamondCollection);
+                        
+                        // Add click handler for diamond tab
+                        diamondTab.addEventListener('click', () => {
+                            document.querySelectorAll('.collection-tab').forEach(t => t.classList.remove('active'));
+                            document.querySelectorAll('.collection').forEach(c => c.style.display = 'none');
+                            
+                            diamondTab.classList.add('active');
+                            document.getElementById('diamond-collection').style.display = 'grid';
+                        });
+                    }
+                }
+                
+                // Add diamond tab to Pokédex tabs
+                const pokedexTabs = document.querySelector('.pokedex-tabs');
+                if (pokedexTabs) {
+                    const diamondTab = document.createElement('div');
+                    diamondTab.className = 'pokedex-tab';
+                    diamondTab.setAttribute('data-pokedex-tab', 'diamond');
+                    diamondTab.textContent = 'Diamond';
+                    pokedexTabs.appendChild(diamondTab);
+                    
+                    // Create diamond Pokédex container
+                    const pokedexContainer = document.getElementById('pokedex-container');
+                    if (pokedexContainer) {
+                        const diamondPokedex = document.createElement('div');
+                        diamondPokedex.className = 'pokedex-tab-content';
+                        diamondPokedex.id = 'diamond-pokedex';
+                        
+                        // Add stats container
+                        const statsContainer = document.createElement('div');
+                        statsContainer.className = 'pokedex-stats';
+                        statsContainer.innerHTML = `
+                            <p>Seen: <span id="diamond-seen-count">0</span> / 1025</p>
+                            <p>Caught: <span id="diamond-caught-count">0</span> / 1025</p>
+                        `;
+                        diamondPokedex.appendChild(statsContainer);
+                        
+                        // Add grid container
+                        const gridContainer = document.createElement('div');
+                        gridContainer.className = 'pokedex-grid';
+                        gridContainer.id = 'pokedex-grid-diamond';
+                        diamondPokedex.appendChild(gridContainer);
+                        
+                        // Add to pokedex
+                        pokedexContainer.appendChild(diamondPokedex);
+                        
+                        // Initialize diamond Pokédex grid
+                        initDiamondPokedex();
+                        
+                        // Add click handler for diamond tab
+                        diamondTab.addEventListener('click', () => {
+                            document.querySelectorAll('.pokedex-tab').forEach(t => t.classList.remove('active'));
+                            document.querySelectorAll('.pokedex-tab-content').forEach(c => c.classList.remove('active'));
+                            
+                            diamondTab.classList.add('active');
+                            document.getElementById('diamond-pokedex').classList.add('active');
+                        });
+                    }
+                }
+                
+                // Patch getNextPokemon function to add Diamond Pokémon chance
+                const originalGetNextPokemon = window.getNextPokemon;
+                if (originalGetNextPokemon) {
+                    window.getNextPokemon = function() {
+                        // Truly random selection from all Pokemon
+                        gameState.currentPokemonId = Math.floor(Math.random() * 1025) + 1;
+                        
+                        // First check for diamond (1/10000 chance, not affected by shiny luck)
+                        const diamondChance = 1/10000;
+                        gameState.isDiamond = Math.random() < diamondChance;
+                        
+                        // If not diamond, check for shiny
+                        if (!gameState.isDiamond) {
+                            const shinyChance = gameState.baseShinyCatchRate * gameState.shinyLuck;
+                            gameState.isShiny = Math.random() < shinyChance;
+                        } else {
+                            // Diamond takes precedence over shiny
+                            gameState.isShiny = false;
+                        }
+                        
+                        // Mark as seen in Pokedex
+                        gameState.pokedex.seen[gameState.currentPokemonId] = true;
+                        
+                        // If shiny, mark in shiny seen list
+                        if (gameState.isShiny) {
+                            gameState.pokedex.shinySeen[gameState.currentPokemonId] = true;
+                        }
+                        
+                        // If diamond, mark in diamond seen list
+                        if (gameState.isDiamond) {
+                            gameState.pokedex.diamondSeen[gameState.currentPokemonId] = true;
+                        }
+                        
+                        // Update Pokedex items
+                        updatePokedexItem(gameState.currentPokemonId);
+                        
+                        // Update Pokemon sprite and name
+                        fetchPokemonData(gameState.currentPokemonId);
+                        
+                        // Reset click progress
+                        document.getElementById('click-progress').style.width = '0%';
+                        
+                        // Enable catch button if Pokeballs are available
+                        updateCatchButton();
+                        
+                        // Update Pokedex stats
+                        updatePokedexStats();
+                    };
+                }
+                
+                // Patch fetchPokemonData to handle Diamond Pokémon
+                const originalFetchPokemonData = window.fetchPokemonData;
+                if (originalFetchPokemonData) {
+                    window.fetchPokemonData = function(id) {
+                        fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+                            .then(response => response.json())
+                            .then(data => {
+                                gameState.currentPokemonName = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                                
+                                // Set sprite URL based on variant (diamond takes precedence over shiny)
+                                let spriteUrl;
+                                if (gameState.isDiamond) {
+                                    // Diamond uses normal sprite but will get the diamond styling via CSS
+                                    spriteUrl = data.sprites.front_default;
+                                } else if (gameState.isShiny) {
+                                    spriteUrl = data.sprites.front_shiny;
+                                } else {
+                                    spriteUrl = data.sprites.front_default;
+                                }
+                                
+                                const pokemonImg = document.getElementById('pokemon-img');
+                                pokemonImg.src = spriteUrl;
+                                
+                                // Apply diamond styling if needed
+                                if (gameState.isDiamond) {
+                                    pokemonImg.classList.add('diamond-sprite');
+                                } else {
+                                    pokemonImg.classList.remove('diamond-sprite');
+                                }
+                                
+                                // Set pokemon name with appropriate prefix
+                                let namePrefix = '';
+                                if (gameState.isDiamond) {
+                                    namePrefix = '💎 ';
+                                } else if (gameState.isShiny) {
+                                    namePrefix = '✨ ';
+                                }
+                                
+                                document.getElementById('pokemon-name').textContent = 
+                                    `${namePrefix}${gameState.currentPokemonName}${namePrefix ? ' ' + namePrefix.trim() : ''}`;
+                            })
+                            .catch(error => {
+                                console.error("Error fetching Pokemon data:", error);
+                                // Fallback to GitHub repository sprites if API fails
+                                const spriteUrl = gameState.isShiny 
+                                    ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`
+                                    : `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+                                
+                                const pokemonImg = document.getElementById('pokemon-img');
+                                pokemonImg.src = spriteUrl;
+                                
+                                // Apply diamond styling if needed
+                                if (gameState.isDiamond) {
+                                    pokemonImg.classList.add('diamond-sprite');
+                                } else {
+                                    pokemonImg.classList.remove('diamond-sprite');
+                                }
+                                
+                                document.getElementById('pokemon-name').textContent = `Pokemon #${id}`;
+                            });
+                    };
+                }
+                
+                // Patch attemptCatch to handle Diamond Pokemon
+                const originalAttemptCatch = window.attemptCatch;
+                if (originalAttemptCatch) {
+                    window.attemptCatch = function(ballType) {
+                        const ball = gameState.pokeballs[ballType];
+                        
+                        if (ball.count <= 0) {
+                            showNotification("No Pokéballs left!");
+                            return;
+                        }
+                        
+                        // Reduce ball count
+                        ball.count--;
+                        
+                        // Calculate catch success
+                        const catchRate = ball.catchRate;
+                        const success = Math.random() < catchRate;
+                        
+                        if (success) {
+                            // Add to collection based on current Pokemon type
+                            let collectionType = 'normal';
+                            if (gameState.isDiamond) {
+                                collectionType = 'diamond';
+                            } else if (gameState.isShiny) {
+                                collectionType = 'shiny';
+                            }
+                            
+                            if (!gameState.collection[collectionType][gameState.currentPokemonId]) {
+                                gameState.collection[collectionType][gameState.currentPokemonId] = {
+                                    name: gameState.currentPokemonName,
+                                    caught: 1
+                                };
+                            } else {
+                                gameState.collection[collectionType][gameState.currentPokemonId].caught++;
+                            }
+                            
+                            // Mark as caught in Pokedex
+                            gameState.pokedex.caught[gameState.currentPokemonId] = true;
+                            
+                            // If it was a special variant, make sure it's marked as seen in the right Pokedex too
+                            if (gameState.isShiny) {
+                                gameState.pokedex.shinySeen[gameState.currentPokemonId] = true;
+                            }
+                            if (gameState.isDiamond) {
+                                gameState.pokedex.diamondSeen[gameState.currentPokemonId] = true;
+                            }
+                            
+                            // Update Pokedex displays
+                            updatePokedexItem(gameState.currentPokemonId);
+                            
+                            // Show catch animation
+                            showCatchAnimation(true);
+                            
+                            setTimeout(() => {
+                                // Show special notification for Diamond Pokemon
+                                if (gameState.isDiamond) {
+                                    showNotification(`Caught 💎 Diamond ${gameState.currentPokemonName}! 💎`, 5000);
+                                } else {
+                                    showNotification(`Caught ${gameState.currentPokemonName}!`);
+                                }
+                                
+                                updateCollectionUI();
+                                updatePokedexStats();
+                                getNextPokemon();
+                                updateUI();
+                            }, 1500);
+                        } else {
+                            // Show failed catch animation
+                            showCatchAnimation(false);
+                            
+                            setTimeout(() => {
+                                showNotification(`${gameState.currentPokemonName} broke free!`);
+                                updateUI();
+                            }, 1500);
+                        }
+                    };
+                }
+                
+                // Patch updateCollectionUI to include Diamond Pokémon
+                const originalUpdateCollectionUI = window.updateCollectionUI;
+                if (originalUpdateCollectionUI) {
+                    window.updateCollectionUI = function() {
+                        const normalCollection = document.getElementById('normal-collection');
+                        const shinyCollection = document.getElementById('shiny-collection');
+                        const metallicCollection = document.getElementById('metallic-collection');
+                        const diamondCollection = document.getElementById('diamond-collection');
+                        
+                        // Clear collections
+                        normalCollection.innerHTML = '';
+                        shinyCollection.innerHTML = '';
+                        metallicCollection.innerHTML = '';
+                        if (diamondCollection) diamondCollection.innerHTML = '';
+                        
+                        // Add normal Pokemon
+                        Object.entries(gameState.collection.normal).forEach(([id, pokemon]) => {
+                            const item = document.createElement('div');
+                            item.className = 'collection-item';
+                            
+                            const img = document.createElement('img');
+                            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+                            img.alt = pokemon.name;
+                            
+                            const name = document.createElement('p');
+                            name.textContent = pokemon.name;
+                            
+                            const count = document.createElement('p');
+                            count.textContent = `Caught: ${pokemon.caught}`;
+                            
+                            item.appendChild(img);
+                            item.appendChild(name);
+                            item.appendChild(count);
+                            
+                            normalCollection.appendChild(item);
+                        });
+                        
+                        // Add shiny Pokemon
+                        Object.entries(gameState.collection.shiny).forEach(([id, pokemon]) => {
+                            const item = document.createElement('div');
+                            item.className = 'collection-item';
+                            
+                            const img = document.createElement('img');
+                            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${id}.png`;
+                            img.alt = pokemon.name;
+                            
+                            const name = document.createElement('p');
+                            name.textContent = `✨ ${pokemon.name}`;
+                            
+                            const count = document.createElement('p');
+                            count.textContent = `Caught: ${pokemon.caught}`;
+                            
+                            item.appendChild(img);
+                            item.appendChild(name);
+                            item.appendChild(count);
+                            
+                            shinyCollection.appendChild(item);
+                        });
+                        
+                        // Add metallic Pokemon
+                        Object.entries(gameState.collection.metallic).forEach(([id, pokemon]) => {
+                            const item = document.createElement('div');
+                            item.className = 'collection-item metallic-item';
+                            
+                            const img = document.createElement('img');
+                            img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+                            img.alt = pokemon.name;
+                            img.classList.add('metallic-sprite');
+                            
+                            const name = document.createElement('p');
+                            name.textContent = `🔍 ${pokemon.name}`;
+                            
+                            const count = document.createElement('p');
+                            count.textContent = `Caught: ${pokemon.caught}`;
+                            
+                            item.appendChild(img);
+                            item.appendChild(name);
+                            item.appendChild(count);
+                            
+                            metallicCollection.appendChild(item);
+                        });
+                        
+                        // Add diamond Pokemon
+                        if (diamondCollection && gameState.collection.diamond) {
+                            Object.entries(gameState.collection.diamond).forEach(([id, pokemon]) => {
+                                const item = document.createElement('div');
+                                item.className = 'collection-item diamond-item';
+                                
+                                const img = document.createElement('img');
+                                img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+                                img.alt = pokemon.name;
+                                img.classList.add('diamond-sprite');
+                                
+                                const name = document.createElement('p');
+                                name.textContent = `💎 ${pokemon.name}`;
+                                
+                                const count = document.createElement('p');
+                                count.textContent = `Caught: ${pokemon.caught}`;
+                                
+                                item.appendChild(img);
+                                item.appendChild(name);
+                                item.appendChild(count);
+                                
+                                diamondCollection.appendChild(item);
+                            });
+                        }
+                    };
+                }
+                
+                // Initialize Diamond Pokédex
+                function initDiamondPokedex() {
+                    console.log("Initializing Diamond Pokédex...");
+                    const diamondGrid = document.getElementById('pokedex-grid-diamond');
+                    
+                    if (!diamondGrid) {
+                        console.error("Diamond Pokédex grid not found");
+                        return;
+                    }
+                    
+                    diamondGrid.innerHTML = '';
+                    
+                    // Create placeholders for all Pokemon - diamond version
+                    for (let i = 1; i <= 1025; i++) {
+                        const diamondItem = createPokedexItem(i, 'diamond');
+                        diamondGrid.appendChild(diamondItem);
+                        
+                        // Check if already seen or caught
+                        if (gameState.pokedex.diamondSeen && gameState.pokedex.diamondSeen[i]) {
+                            updateDiamondPokedexItem(i);
+                        }
+                    }
+                    
+                    console.log("Diamond Pokédex initialization complete");
+                }
+                
+                // Create a Pokédex item for Diamond Pokémon
+                function createPokedexItem(id, type) {
+                    const pokedexItem = document.createElement('div');
+                    pokedexItem.className = 'pokedex-item';
+                    pokedexItem.id = `pokedex-${type}-${id}`;
+                    pokedexItem.setAttribute('data-id', id);
+                    pokedexItem.setAttribute('data-name', `Pokemon #${id}`);
+                    pokedexItem.setAttribute('data-type', type);
+                    
+                    // Add Pokemon number
+                    const number = document.createElement('div');
+                    number.className = 'pokedex-number';
+                    number.textContent = `#${id}`;
+                    pokedexItem.appendChild(number);
+                    
+                    // Add image placeholder with diamond styling if needed
+                    const img = document.createElement('img');
+                    img.src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
+                    
+                    img.onerror = function() {
+                        this.src = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=';
+                    };
+                    img.style.visibility = 'hidden';
+                    
+                    // If diamond, add class for styling
+                    if (type === 'diamond') {
+                        img.classList.add('diamond-sprite');
+                    }
+                    
+                    pokedexItem.appendChild(img);
+                    
+                    // Add name placeholder
+                    const name = document.createElement('div');
+                    name.textContent = '???';
+                    pokedexItem.appendChild(name);
+                    
+                    // Add click handler to enlarge on click
+                    pokedexItem.addEventListener('click', () => {
+                        // Only show details if this Pokemon has been seen 
+                        const hasSeen = type === 'diamond' ? 
+                            (gameState.pokedex.diamondSeen && gameState.pokedex.diamondSeen[id]) : false;
+                        
+                        if (hasSeen) {
+                            showPokemonDetail(id, type);
+                        }
+                    });
+                    
+                    return pokedexItem;
+                }
+                
+                // Update a Diamond Pokédex item
+                function updateDiamondPokedexItem(id) {
+                    const diamondItem = document.getElementById(`pokedex-diamond-${id}`);
+                    if (!diamondItem) return;
+                    
+                    if (gameState.pokedex.diamondSeen && gameState.pokedex.diamondSeen[id]) {
+                        diamondItem.classList.add('seen');
+                        diamondItem.classList.add('diamond');
+                        
+                        const pokemonName = diamondItem.getAttribute('data-name');
+                        diamondItem.querySelector('div:last-child').textContent = pokemonName;
+                        diamondItem.querySelector('img').style.visibility = 'visible';
+                    }
+                    
+                    // Check if this diamond Pokémon has been caught
+                    if (gameState.collection.diamond && gameState.collection.diamond[id]) {
+                        diamondItem.classList.add('caught');
+                    }
+                }
+                
+                // Patch updatePokedexItem to include Diamond Pokémon
+                const originalUpdatePokedexItem = window.updatePokedexItem;
+                if (originalUpdatePokedexItem) {
+                    window.updatePokedexItem = function(id) {
+                        console.log(`Updating Pokedex item #${id}`);
+                        
+                        // Update standard version
+                        const standardItem = document.getElementById(`pokedex-standard-${id}`);
+                        if (standardItem) {
+                            if (gameState.pokedex.seen[id]) {
+                                standardItem.classList.add('seen');
+                                const pokemonName = standardItem.getAttribute('data-name');
+                                standardItem.querySelector('div:last-child').textContent = pokemonName;
+                                standardItem.querySelector('img').style.visibility = 'visible';
+                            }
+                            
+                            if (gameState.pokedex.caught[id]) {
+                                standardItem.classList.add('caught');
+                            }
+                        }
+                        
+                        // Update shiny version - only if shiny version was seen
+                        const shinyItem = document.getElementById(`pokedex-shiny-${id}`);
+                        if (shinyItem) {
+                            if (gameState.pokedex.shinySeen[id]) {
+                                shinyItem.classList.add('seen');
+                                const pokemonName = shinyItem.getAttribute('data-name');
+                                shinyItem.querySelector('div:last-child').textContent = pokemonName;
+                                shinyItem.querySelector('img').style.visibility = 'visible';
+                            }
+                            
+                            // Only mark as caught if shiny version was caught
+                            if (gameState.collection.shiny[id]) {
+                                shinyItem.classList.add('caught');
+                            }
+                        }
+                        
+                        // Update metallic version - only if metallic version was seen
+                        const metallicItem = document.getElementById(`pokedex-metallic-${id}`);
+                        if (metallicItem) {
+                            if (gameState.pokedex.metallicSeen[id]) {
+                                metallicItem.classList.add('seen');
+                                metallicItem.classList.add('metallic');
+                                const pokemonName = metallicItem.getAttribute('data-name');
+                                metallicItem.querySelector('div:last-child').textContent = pokemonName;
+                                metallicItem.querySelector('img').style.visibility = 'visible';
+                            }
+                            
+                            // Only mark as caught if metallic version was caught
+                            if (gameState.collection.metallic[id]) {
+                                metallicItem.classList.add('caught');
+                            }
+                        }
+                        
+                        // Update diamond version - only if diamond version was seen
+                        const diamondItem = document.getElementById(`pokedex-diamond-${id}`);
+                        if (diamondItem) {
+                            if (gameState.pokedex.diamondSeen && gameState.pokedex.diamondSeen[id]) {
+                                diamondItem.classList.add('seen');
+                                diamondItem.classList.add('diamond');
+                                const pokemonName = diamondItem.getAttribute('data-name');
+                                diamondItem.querySelector('div:last-child').textContent = pokemonName;
+                                diamondItem.querySelector('img').style.visibility = 'visible';
+                            }
+                            
+                            // Only mark as caught if diamond version was caught
+                            if (gameState.collection.diamond && gameState.collection.diamond[id]) {
+                                diamondItem.classList.add('caught');
+                            }
+                        }
+                    };
+                }
+                
+                // Patch updatePokedexStats to include Diamond Pokémon
+                const originalUpdatePokedexStats = window.updatePokedexStats;
+                if (originalUpdatePokedexStats) {
+                    window.updatePokedexStats = function() {
+                        const seenCount = Object.keys(gameState.pokedex.seen).length;
+                        const caughtCount = Object.keys(gameState.pokedex.caught).length;
+                        const shinySeenCount = Object.keys(gameState.pokedex.shinySeen).length;
+                        const shinyCaughtCount = Object.keys(gameState.collection.shiny).length;
+                        const metallicSeenCount = Object.keys(gameState.pokedex.metallicSeen).length;
+                        const metallicCaughtCount = Object.keys(gameState.collection.metallic).length;
+                        
+                        // New: diamond stats
+                        const diamondSeenCount = gameState.pokedex.diamondSeen ? Object.keys(gameState.pokedex.diamondSeen).length : 0;
+                        const diamondCaughtCount = gameState.collection.diamond ? Object.keys(gameState.collection.diamond).length : 0;
+                        
+                        document.getElementById('seen-count').textContent = seenCount;
+                        document.getElementById('caught-count').textContent = caughtCount;
+                        
+                        // Update shiny stats
+                        const shinySeenElem = document.getElementById('shiny-seen-count');
+                        const shinyCaughtElem = document.getElementById('shiny-caught-count');
+                        
+                        if (shinySeenElem) shinySeenElem.textContent = shinySeenCount;
+                        if (shinyCaughtElem) shinyCaughtElem.textContent = shinyCaughtCount;
+                        
+                        // Update metallic stats
+                        const metallicSeenElem = document.getElementById('metallic-seen-count');
+                        const metallicCaughtElem = document.getElementById('metallic-caught-count');
+                        
+                        if (metallicSeenElem) metallicSeenElem.textContent = metallicSeenCount;
+                        if (metallicCaughtElem) metallicCaughtElem.textContent = metallicCaughtCount;
+                        
+                        // Update diamond stats
+                        const diamondSeenElem = document.getElementById('diamond-seen-count');
+                        const diamondCaughtElem = document.getElementById('diamond-caught-count');
+                        
+                        if (diamondSeenElem) diamondSeenElem.textContent = diamondSeenCount;
+                        if (diamondCaughtElem) diamondCaughtElem.textContent = diamondCaughtCount;
+                    };
+                }
+                
+                // Update Casino code to include Diamond Pokémon in possible rewards
+                if (window.generatePossibleRewards) {
+                    const originalGeneratePossibleRewards = window.generatePossibleRewards;
+                    window.generatePossibleRewards = function() {
+                        console.log("Generating possible rewards with Diamond chance...");
+                        
+                        // Clear existing rewards
+                        gameState.casino.possibleRewards = [];
+                        
+                        // Get all available Pokémon IDs from 1 to 1025
+                        const availablePokemon = Array.from({ length: 1025 }, (_, i) => i + 1);
+                        
+                        // Shuffle the array for randomness
+                        const shuffled = shuffleArray([...availablePokemon]);
+                        
+                        // Take 20 Pokémon for our case (including a diamond chance)
+                        const selectedPokemon = shuffled.slice(0, 20);
+                        console.log("Selected Pokémon IDs:", selectedPokemon);
+                        
+                        // Add diamond Pokémon with small probability (1 in 20 cases)
+                        const includesDiamond = Math.random() < 0.05;
+                        
+                        // Take first 10 for the case
+                        const caseSelection = selectedPokemon.slice(0, 10);
+                        
+                        // Count to track loaded Pokémon
+                        let loadedCount = 0;
+                        
+                        // Assign types: 5 metallic, 4 shiny, 1 normal and rare chance of diamond
+                        for (let i = 0; i < caseSelection.length; i++) {
+                            const pokemonId = caseSelection[i];
+                            let type;
+                            
+                            if (includesDiamond && i === 0) {
+                                // First position gets the diamond if includesDiamond is true
+                                type = 'diamond';
+                            } else if (i < (includesDiamond ? 5 : 5)) {
+                                type = 'metallic';
+                            } else if (i < (includesDiamond ? 9 : 9)) {
+                                type = 'shiny';
+                            } else {
+                                type = 'normal';
+                            }
+                            
+                            // Fetch the Pokémon name
+                            fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonId}`)
+                                .then(response => response.json())
+                                .then(data => {
+                                    const pokemonName = data.name.charAt(0).toUpperCase() + data.name.slice(1);
+                                    
+                                    // Add to possible rewards
+                                    gameState.casino.possibleRewards.push({
+                                        id: pokemonId,
+                                        name: pokemonName,
+                                        type: type
+                                    });
+                                    
+                                    loadedCount++;
+                                    console.log(`Loaded ${loadedCount}/10 Pokémon`);
+                                    
+                                    // Update odds display if all Pokémon are loaded
+                                    if (loadedCount === 10) {
+                                        console.log("All Pokémon loaded, updating display");
+                                        updateOddsDisplay();
+                                    }
+                                })
+                                .catch(error => {
+                                    console.error(`Error fetching Pokémon #${pokemonId}:`, error);
+                                    
+                                    // Add with placeholder name
+                                    gameState.casino.possibleRewards.push({
+                                        id: pokemonId,
+                                        name: `Pokémon #${pokemonId}`,
+                                        type: type
+                                    });
+                                    
+                                    loadedCount++;
+                                    console.log(`Loaded ${loadedCount}/10 Pokémon (with error)`);
+                                    
+                                    // Update odds display if all Pokémon are loaded
+                                    if (loadedCount === 10) {
+                                        console.log("All Pokémon loaded, updating display");
+                                        updateOddsDisplay();
+                                    }
+                                });
+                        }
+                        
+                        // Safety timeout in case some Pokémon don't load
+                        setTimeout(() => {
+                            if (loadedCount < 10 && gameState.casino.possibleRewards.length > 0) {
+                                console.log("Some Pokémon failed to load, updating display anyway");
+                                updateOddsDisplay();
+                            }
+                        }, 5000);
+                    };
+                }
+                
+                // Patch updateOddsDisplay to include Diamond styling
+                if (window.updateOddsDisplay) {
+                    const originalUpdateOddsDisplay = window.updateOddsDisplay;
+                    window.updateOddsDisplay = function() {
+                        const oddsGrid = document.getElementById('odds-grid');
+                        if (!oddsGrid) return;
+                        
+                        // Clear existing odds
+                        oddsGrid.innerHTML = '';
+                        
+                        // Sort rewards by type (diamond first, then metallic, then shiny, then normal)
+                        const sortedRewards = [...gameState.casino.possibleRewards].sort((a, b) => {
+                            const typeOrder = { 'diamond': 0, 'metallic': 1, 'shiny': 2, 'normal': 3 };
+                            return typeOrder[a.type] - typeOrder[b.type];
+                        });
+                        
+                        // Add each possible reward to the odds display
+                        sortedRewards.forEach(reward => {
+                            const oddsItem = document.createElement('div');
+                            oddsItem.className = `odds-item ${reward.type}-odds`;
+                            
+                            // Determine image URL based on type (diamond uses normal sprite with styling)
+                            let imgUrl;
+                            if (reward.type === 'shiny') {
+                                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${reward.id}.png`;
+                            } else {
+                                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${reward.id}.png`;
+                            }
+                            
+                            // Create item HTML
+                            oddsItem.innerHTML = `
+                                <div class="odds-percentage">10%</div>
+                                <img src="${imgUrl}" alt="${reward.name}" 
+                                    ${reward.type === 'metallic' ? 'class="metallic-sprite"' : 
+                                      reward.type === 'diamond' ? 'class="diamond-sprite"' : ''}>
+                                <p>${
+                                    reward.type === 'metallic' ? '🔍' : 
+                                    reward.type === 'shiny' ? '✨' : 
+                                    reward.type === 'diamond' ? '💎' : ''
+                                } ${reward.name}</p>
+                            `;
+                            
+                            oddsGrid.appendChild(oddsItem);
+                        });
+                    };
+                }
+                
+                // Update showCaseOpeningAnimation to support Diamond Pokemon
+                if (window.showCaseOpeningAnimation) {
+                    const originalShowCaseOpeningAnimation = window.showCaseOpeningAnimation;
+                    window.showCaseOpeningAnimation = function() {
+                        console.log("Starting case opening animation");
+                        
+                        // Ensure we have rewards to choose from
+                        if (!gameState.casino.possibleRewards || gameState.casino.possibleRewards.length === 0) {
+                            console.error("No possible rewards found");
+                            showNotification("Error: No rewards available. Please try again.");
+                            gameState.money += gameState.casino.casePrice; // Refund
+                            updateUI();
+                            return;
+                        }
+                        
+                        console.log(`Found ${gameState.casino.possibleRewards.length} possible rewards`);
+                        
+                        // Create modal for case opening
+                        const modal = document.createElement('div');
+                        modal.className = 'case-opening-modal';
+                        
+                        // Create spinner container
+                        const spinnerContainer = document.createElement('div');
+                        spinnerContainer.className = 'spinner-container';
+                        
+                        // Create spinner indicator (center line)
+                        const indicator = document.createElement('div');
+                        indicator.className = 'spinner-indicator';
+                        spinnerContainer.appendChild(indicator);
+                        
+                        // Create spinner items container
+                        const spinnerItems = document.createElement('div');
+                        spinnerItems.className = 'spinner-items';
+                        
+                        // Determine the winning item (random selection from possible rewards)
+                        const randomIndex = Math.floor(Math.random() * gameState.casino.possibleRewards.length);
+                        const winningReward = gameState.casino.possibleRewards[randomIndex];
+                        console.log("Selected winning reward:", winningReward);
+                        
+                        // Create a large set of items to make the animation smoother
+                        const totalItems = 50;
+                        
+                        // Define exact width for consistent calculations
+                        const itemWidth = 120; // Width of each spinner item in pixels
+                        const itemMargin = 20; // Total margin (left+right) for each item
+                        const itemTotalWidth = itemWidth + itemMargin; // Total width including margins
+                        
+                        // Position where the winning item should appear
+                        const winningPosition = 36;
+                        
+                        // Create all spinner items
+                        for (let i = 0; i < totalItems; i++) {
+                            // Determine which item to show
+                            let reward;
+                            
+                            if (i === winningPosition) {
+                                // This is the winning position - use the pre-selected winning reward
+                                reward = winningReward;
+                            } else {
+                                // Random item from possible rewards
+                                const randomRewardIndex = Math.floor(Math.random() * gameState.casino.possibleRewards.length);
+                                reward = gameState.casino.possibleRewards[randomRewardIndex];
+                            }
+                            
+                            // Create spinner item
+                            const item = document.createElement('div');
+                            item.className = `spinner-item ${reward.type}`;
+                            
+                            // Set fixed width to ensure consistent layout
+                            item.style.width = `${itemWidth}px`;
+                            item.style.margin = `15px ${itemMargin/2}px`;
+                            item.style.boxSizing = 'border-box';
+                            
+                            if (i === winningPosition) {
+                                item.setAttribute('data-winning', 'true');
+                                item.style.borderWidth = '3px';
+                            }
+                            
+                            // Determine image URL based on type
+                            let imgUrl;
+                            if (reward.type === 'shiny') {
+                                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${reward.id}.png`;
+                            } else {
+                                imgUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${reward.id}.png`;
+                            }
+                            
+                            // Determine if special styling is needed
+                            let specialClass = '';
+                            if (reward.type === 'metallic') {
+                                specialClass = 'class="metallic-sprite"';
+                            } else if (reward.type === 'diamond') {
+                                specialClass = 'class="diamond-sprite"';
+                            }
+                            
+                            // Create item HTML
+                            item.innerHTML = `
+                                <img src="${imgUrl}" alt="${reward.name}" ${specialClass}>
+                                <p>${reward.name}</p>
+                            `;
+                            
+                            spinnerItems.appendChild(item);
+                        }
+                        
+                        spinnerContainer.appendChild(spinnerItems);
+                        modal.appendChild(spinnerContainer);
+                        
+                        // Add result text
+                        const resultText = document.createElement('div');
+                        resultText.className = 'spinner-result';
+                        modal.appendChild(resultText);
+                        
+                        // Add spin again button
+                        const spinAgainBtn = document.createElement('button');
+                        spinAgainBtn.className = 'spin-again-btn';
+                        spinAgainBtn.textContent = 'Open Another Case';
+                        spinAgainBtn.addEventListener('click', function() {
+                            document.body.removeChild(modal);
+                            
+                            // Generate new random rewards for the next case
+                            console.log("Generating new rewards for next case");
+                            generatePossibleRewards();
+                            
+                            // Check if player can open another case
+                            if (gameState.money >= gameState.casino.casePrice) {
+                                openCase();
+                            } else {
+                                showNotification("Not enough money to open another case!");
+                            }
+                        });
+                        modal.appendChild(spinAgainBtn);
+                        
+                        // Add to body
+                        document.body.appendChild(modal);
+                        
+                        // Render the container first, then start animation after measurements are available
+                        setTimeout(() => {
+                            // Get spinner container measurements
+                            const containerWidth = spinnerContainer.offsetWidth;
+                            
+                            // Calculate the center position of the container
+                            const containerCenter = containerWidth / 2;
+                            
+                            // Calculate the initial left position to align the winning item with the center
+                            const finalPosition = containerCenter - ((winningPosition * itemTotalWidth) + (itemTotalWidth / 2));
+                            
+                            console.log(`Container width: ${containerWidth}, Container center: ${containerCenter}`);
+                            console.log(`Item width: ${itemTotalWidth}, Winning position: ${winningPosition}`);
+                            console.log(`Calculated final position: ${finalPosition}`);
+                            
+                            // Set initial position to start far to the right (for animation)
+                            spinnerItems.style.left = `${window.innerWidth}px`;
+                            
+                            // Set the winning position with a short delay to ensure initial position is applied
+                            setTimeout(() => {
+                                // Apply animation
+                                spinnerItems.style.transition = 'left 8s cubic-bezier(0.32, 0.64, 0.45, 1)';
+                                spinnerItems.style.left = `${finalPosition}px`;
+                                
+                                // Show result after animation completes
+                                setTimeout(() => {
+                                    // Verify and debug final alignment
+                                    const winningItem = spinnerItems.querySelector('[data-winning="true"]');
+                                    if (winningItem) {
+                                        const winningRect = winningItem.getBoundingClientRect();
+                                        const indicatorRect = indicator.getBoundingClientRect();
+                                        
+                                        console.log('Final alignment check:');
+                                        console.log(`Winning item center: ${winningRect.left + winningRect.width/2}`);
+                                        console.log(`Indicator center: ${indicatorRect.left + indicatorRect.width/2}`);
+                                        console.log(`Offset: ${(winningRect.left + winningRect.width/2) - (indicatorRect.left + indicatorRect.width/2)}px`);
+                                        
+                                        // Add highlight effect
+                                        winningItem.style.boxShadow = `0 0 20px ${winningReward.type === 'diamond' ? '#4fc3f7' : '#ffcb05'}, 
+                                                                     0 0 40px ${winningReward.type === 'diamond' ? '#4fc3f7' : '#ffcb05'}`;
+                                        winningItem.style.transform = 'scale(1.1)';
+                                        winningItem.style.zIndex = '10';
+                                        winningItem.style.transition = 'all 0.5s ease';
+                                    }
+                                    
+                                    // Determine icon based on type
+                                    let rewardIcon = '';
+                                    if (winningReward.type === 'metallic') {
+                                        rewardIcon = '🔍';
+                                    } else if (winningReward.type === 'shiny') {
+                                        rewardIcon = '✨';
+                                    } else if (winningReward.type === 'diamond') {
+                                        rewardIcon = '💎';
+                                    }
+                                    
+                                    resultText.innerHTML = `
+                                        <h2>Congratulations!</h2>
+                                        <p>You won ${rewardIcon} ${winningReward.name}${rewardIcon ? ' ' + rewardIcon : ''}!</p>
+                                    `;
+                                    
+                                    // Special effect for diamond rewards
+                                    if (winningReward.type === 'diamond') {
+                                        resultText.style.color = '#4fc3f7';
+                                        resultText.style.textShadow = '0 0 10px #4fc3f7';
+                                    }
+                                    
+                                    resultText.classList.add('show');
+                                    spinAgainBtn.classList.add('show');
+                                    
+                                    // Add the reward to collection
+                                    addRewardToCollection(winningReward);
+                                    
+                                    // Add to history
+                                    addToHistory(winningReward);
+                                    
+                                    // Play winning sound
+                                    playWinSound(winningReward.type);
+                                    
+                                }, 8000); // Animation takes 8 seconds
+                            }, 10);
+                        }, 100);
+                    };
+                }
+                
+                // Patch addRewardToCollection to handle Diamond Pokémon
+                if (window.addRewardToCollection) {
+                    const originalAddRewardToCollection = window.addRewardToCollection;
+                    window.addRewardToCollection = function(reward) {
+                        // Determine collection type based on reward type
+                        const collectionType = reward.type;
+                        
+                        // Add to appropriate collection
+                        if (!gameState.collection[collectionType][reward.id]) {
+                            gameState.collection[collectionType][reward.id] = {
+                                name: reward.name,
+                                caught: 1
+                            };
+                        } else {
+                            gameState.collection[collectionType][reward.id].caught++;
+                        }
+                        
+                        // Mark as caught in Pokedex
+                        gameState.pokedex.caught[reward.id] = true;
+                        
+                        // If special variant, mark as seen in that category
+                        if (reward.type === 'shiny') {
+                            gameState.pokedex.shinySeen[reward.id] = true;
+                        } else if (reward.type === 'metallic') {
+                            gameState.pokedex.metallicSeen[reward.id] = true;
+                        } else if (reward.type === 'diamond') {
+                            if (!gameState.pokedex.diamondSeen) {
+                                gameState.pokedex.diamondSeen = {};
+                            }
+                            gameState.pokedex.diamondSeen[reward.id] = true;
+                        }
+                        
+                        // Mark as seen in regular Pokedex
+                        gameState.pokedex.seen[reward.id] = true;
+                        
+                        // Update Pokedex displays
+                        updatePokedexItem(reward.id);
+                        
+                        // Update collection UI
+                        updateCollectionUI();
+                        
+                        // Update Pokedex stats
+                        updatePokedexStats();
+                        
+                        // Save game
+                        saveGame();
+                        
+                        // Show special notification for Diamond Pokémon
+                        if (reward.type === 'diamond') {
+                            showDiamondRewardPopup(reward.id, reward.name);
+                        }
+                    };
+                }
+                
+                // Add function to play special winning sound for Diamond rewards
+                if (window.playWinSound) {
+                    const originalPlayWinSound = window.playWinSound;
+                    window.playWinSound = function(type) {
+                        // Create audio element
+                        const audio = new Audio();
+                        
+                        // Set source based on type
+                        if (type === 'diamond') {
+                            // Ultra epic win sound for diamond
+                            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAhTAAAAAAAAA8GxTW/DAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+                        } else if (type === 'metallic') {
+                            // Epic win sound
+                            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAUHAAAAAAAAA8FQxwLCAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+                        } else if (type === 'shiny') {
+                            // Medium win sound
+                            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAZmAAAAAAAAA8EdVc1RAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+                        } else {
+                            // Regular win sound
+                            audio.src = 'data:audio/mp3;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjU4Ljc2LjEwMAAAAAAAAAAAAAAA//tQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWGluZwAAAA8AAAACAAADwQDp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp6enp//////////////////////////////////////////////////////////////////8AAAAATGF2YzU4LjEzAAAAAAAAAAAAAAAAJAVKAAAAAAAAA8FM20HRAAAAAAD/+xBkAA8AAAaQAAAAgAAA0gAAABAAABpAAAACAAADSAAAAETEFNRTMuMTAwVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV';
+                        }
+                        
+                        // Play sound
+                        audio.play().catch(e => console.error('Error playing sound:', e));
+                    };
+                }
+                
+                // Add new function to show Diamond reward popup
+                function showDiamondRewardPopup(pokemonId, pokemonName) {
+                    // Create popup container
+                    const popup = document.createElement('div');
+                    popup.className = 'diamond-reward-popup';
+                    popup.innerHTML = `
+                        <h3>💎 Diamond Pokémon! 💎</h3>
+                        <div class="diamond-popup-image">
+                            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png" 
+                                 alt="${pokemonName}">
+                        </div>
+                        <p>💎 ${pokemonName} 💎</p>
+                        <p>Extremely rare! (1/10,000 chance)</p>
+                    `;
+                    
+                    // Add to body
+                    document.body.appendChild(popup);
+                    
+                    // Remove after 5 seconds
+                    setTimeout(() => {
+                        popup.classList.add('fade-out');
+                        setTimeout(() => {
+                            if (document.body.contains(popup)) {
+                                document.body.removeChild(popup);
+                            }
+                        }, 1000);
+                    }, 5000);
+                }
+                
+                // Patch showNotification to allow longer durations
+                const originalShowNotification = window.showNotification;
+                if (originalShowNotification) {
+                    window.showNotification = function(message, duration = 3000) {
+                        const notification = document.getElementById('notification');
+                        notification.textContent = message;
+                        notification.classList.add('show');
+                        
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                        }, duration);
+                    };
+                }
+                
+                console.log("Diamond Pokémon system initialized successfully!");
+            } catch (error) {
+                console.error("Error initializing Diamond Pokémon:", error);
+            }
+        }, 3000);
+    });
+})();
     </script>
 </body>
 </html>
